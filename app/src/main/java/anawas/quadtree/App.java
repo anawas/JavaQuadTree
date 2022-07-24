@@ -3,7 +3,10 @@
  */
 package anawas.quadtree;
 
+import java.awt.Point;
 import java.awt.Rectangle;
+import java.util.Random;
+import javax.swing.WindowConstants;
 
 public class App {
     public String getGreeting() {
@@ -11,6 +14,16 @@ public class App {
     }
 
     public static void main(String[] args) {
-        Rectangle rect = new Rectangle();
+        Random random = new Random();
+        Rectangle rect = new Rectangle(0,0,400,400);
+        QuadTree qtree = new QuadTree(rect, 4);
+        for (int i = 0; i < 100; i++) {
+            qtree.addPoint(new Point(random.nextInt(400), random.nextInt(400)));
+        }
+        Canvas canvas = new Canvas();
+        canvas.setSize(400, 400);
+        canvas.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        canvas.setVisible(true);
+        canvas.drawQuadtree(qtree);
     }
 }

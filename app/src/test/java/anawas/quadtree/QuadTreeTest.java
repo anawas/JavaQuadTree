@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.List;
+import java.util.Random;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,7 +27,7 @@ class QuadTreeTest {
     Point p = new Point(10,10);
     qtree.addPoint(new Point(10,10));
     List<Point> pts = qtree.getPoints();
-    assertTrue(pts.get(0).equals(p));
+    assertEquals(pts.get(0), p);
   }
 
   @Test
@@ -53,10 +54,10 @@ class QuadTreeTest {
 
   @Test
   void subdivide() {
-    for (int i = 0; i <= 4; i++) {
-      qtree.addPoint(new Point(100, 100));
-      System.out.println(qtree);
+    Random random = new Random();
+    for (int i = 0; i <= 5; i++) {
+      qtree.addPoint(new Point(random.nextInt(200), random.nextInt(200)));
     }
-    assertTrue(qtree.isHasSubdivions());
+    assertTrue(qtree.isSubdivided());
   }
 }

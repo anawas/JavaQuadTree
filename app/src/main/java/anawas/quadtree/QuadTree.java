@@ -1,5 +1,6 @@
 package anawas.quadtree;
 
+import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -31,6 +32,11 @@ public class QuadTree {
   private QuadTree southwest;
   private QuadTree southeast;
 
+  /**
+   * The constructor
+   * @param region The region (width, height) of the plane which the Quadtree covers
+   * @param capacity The number of points a quadrant can contain before it's subdivided
+   */
   public QuadTree(Rectangle region, int capacity) {
     this.region = region;
     this.capacity = capacity;
@@ -43,7 +49,7 @@ public class QuadTree {
 
   /**
    * Adds a point to this QuadTree. It performs the following steps:
-   * - Checks if point is inside region. If not, the method returns
+   * - Checks if point is inside region. If not, the method does nothing and returns
    * - Checks if the capacity is reached. If so, the tree is subdivided
    * @param point The point to add to the tree
    */
@@ -91,13 +97,28 @@ public class QuadTree {
     hasSubdivions = true;
   }
 
-  public boolean isHasSubdivions() {
+  public boolean isSubdivided() {
     return hasSubdivions;
   }
 
-
   public int getCapacity() {
     return this.capacity;
+  }
+
+  public Rectangle getRegion() {
+    return this.region;
+  }
+
+  public void draw(Graphics g) {
+    Rectangle reg = getRegion();
+    points.forEach(p -> g.fillOval(p.x, p.y, 6,6));
+    g.drawRect(reg.x, reg.y, reg.width, reg.height);
+    if (hasSubdivions) {
+      northwest.draw(g);
+      northeast.draw(g);
+      southwest.draw(g);
+      southeast.draw(g);
+    }
   }
 
   @Override
@@ -108,12 +129,12 @@ public class QuadTree {
         ", # points=" + points.size() +
         ", hasSubdivions=" + hasSubdivions;
     if (hasSubdivions) {
-      output += "\n nw=" + northwest +
-          "\n ne=" + northeast +
-          "\n sw=" + southwest +
-          "\n se=" + southeast;
+      output += "\n  nw=" + northwest +
+          "\n  ne=" + northeast +
+          "\n  sw=" + southwest +
+          "\n  se=" + southeast;
     }
-    output +=         '}';
+    output += '}';
 
     return output;
   }
