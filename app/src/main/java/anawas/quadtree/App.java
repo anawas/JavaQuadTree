@@ -12,10 +12,6 @@ public class App {
     static final int WIDTH = 400;
     static final int HEIGHT = 400;
 
-    public String getGreeting() {
-        return "Hello World!";
-    }
-
     public static void main(String[] args) {
         Random random = new Random();
         Rectangle rect = new Rectangle(0,0,WIDTH,HEIGHT);
@@ -24,7 +20,7 @@ public class App {
             qtree.addPoint(new Point(random.nextInt(WIDTH), random.nextInt(HEIGHT)));
         }
         Canvas canvas = new Canvas();
-        canvas.setSize(WIDTH, HEIGHT);
+        canvas.setSize(WIDTH+20, HEIGHT+40);
         canvas.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         canvas.drawQuadtree(qtree);
         canvas.setVisible(true);
