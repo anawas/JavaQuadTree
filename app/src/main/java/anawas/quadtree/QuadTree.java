@@ -11,7 +11,7 @@ import java.util.List;
  * @author Andreas Wassmer
  * @version 0.1
  */
-public class QuadTree {
+public class QuadTree implements Drawable {
   // Number of points a quadrant can have until its subdivided
   private int capacity;
   // The region of the 2D plane this instance covers
@@ -109,18 +109,6 @@ public class QuadTree {
     return this.region;
   }
 
-  public void draw(Graphics g) {
-    Rectangle reg = getRegion();
-    points.forEach(p -> g.fillOval(p.x, p.y, 6,6));
-    g.drawRect(reg.x, reg.y, reg.width, reg.height);
-    if (hasSubdivions) {
-      northwest.draw(g);
-      northeast.draw(g);
-      southwest.draw(g);
-      southeast.draw(g);
-    }
-  }
-
   @Override
   public String toString() {
     String output =  "QuadTree{" +
@@ -137,5 +125,18 @@ public class QuadTree {
     output += '}';
 
     return output;
+  }
+
+  @Override
+  public void draw(Graphics g) {
+    Rectangle reg = getRegion();
+    points.forEach(p -> g.fillOval(p.x, p.y, 6,6));
+    g.drawRect(reg.x, reg.y, reg.width, reg.height);
+    if (hasSubdivions) {
+      northwest.draw(g);
+      northeast.draw(g);
+      southwest.draw(g);
+      southeast.draw(g);
+    }
   }
 }
