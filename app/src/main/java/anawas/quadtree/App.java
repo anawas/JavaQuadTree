@@ -9,21 +9,24 @@ import java.util.Random;
 import javax.swing.WindowConstants;
 
 public class App {
+    static final int WIDTH = 400;
+    static final int HEIGHT = 400;
+
     public String getGreeting() {
         return "Hello World!";
     }
 
     public static void main(String[] args) {
         Random random = new Random();
-        Rectangle rect = new Rectangle(0,0,400,400);
+        Rectangle rect = new Rectangle(0,0,WIDTH,HEIGHT);
         QuadTree qtree = new QuadTree(rect, 4);
         for (int i = 0; i < 100; i++) {
-            qtree.addPoint(new Point(random.nextInt(400), random.nextInt(400)));
+            qtree.addPoint(new Point(random.nextInt(WIDTH), random.nextInt(HEIGHT)));
         }
         Canvas canvas = new Canvas();
-        canvas.setSize(400, 400);
+        canvas.setSize(WIDTH, HEIGHT);
         canvas.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        canvas.setVisible(true);
         canvas.drawQuadtree(qtree);
+        canvas.setVisible(true);
     }
 }
